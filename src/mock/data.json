@@ -1,0 +1,34 @@
+{
+  "register": [{
+      "id": 1,
+      "name": "admin",
+      "pwd": "admin123"
+    },
+    {
+      "name": "xj1",
+      "pwd": "4a5757352a136647f66b7c34bb5397ff",
+      "id": 2
+    }
+  ],
+  "userList": [{
+    "id": 387,
+    "title": "海天家园",
+
+    "num": "1-1-2",
+    "hometype": "三室两厅",
+    "owner": "许洁"
+  }, {
+    "id": 382,
+    "title": "海天家园",
+
+    "num": "1-1-1",
+    "hometype": "三室两厅",
+    "owner": "喻伟康"
+  }, {
+    "id": 381,
+    "title": "海天家园",
+    "num": "1-1-3",
+    "hometype": "三室两厅",
+    "owner": "许大宝"
+  }]
+}
