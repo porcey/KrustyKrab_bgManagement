@@ -32,6 +32,7 @@
   />
   <!-- 编辑弹出框 -->
   <UpdateDialog />
+  <img src="../../../assets/crewCap.png" alt="" />
 </template>
 
 <script lang="ts" setup>
@@ -45,7 +46,28 @@ import axios from "axios";
 
 let store = useStore();
 
-let tableData = reactive<object[]>([]); // 用于展示的表格数据
+let tableData = reactive<object[]>([
+  {
+    id: 1,
+    name: "蟹老板",
+    post: "老板",
+  },
+  {
+    id: 2,
+    name: "海绵宝宝",
+    post: "厨师、服务员、清洁工",
+  },
+  {
+    id: 3,
+    name: "章鱼哥",
+    post: "柜台收银员",
+  },
+  {
+    id: 4,
+    name: "派大星",
+    post: "编外人员",
+  },
+]); // 用于展示的表格数据
 let curEdit = {}; // 当前修改后的员工信息
 let curEditUser = ref(-1);
 
@@ -75,7 +97,12 @@ const handleEdit = (index: number, row: any) => {
 };
 // 员工删除
 const handleDelete = (index: number, row: any) => {
-  console.log(index, row);
+  link(apiUrl.userList, "GET", {}, { owner: search.value }).then(
+    (value: any) => {
+      tableData.splice(0, tableData.length, value.data[0]);
+      console.log("查询结果：", tableData);
+    }
+  );
 };
 // 执行员工查询
 const handleSearch = () => {
@@ -96,19 +123,6 @@ let testCur = {
 // 请求员工数据
 onMounted(() => {
   if (store.state.HomeModule.viewStatic) {
-    axios
-      .get("./staticData.json")
-      .then((value) => {
-        // console.log("value.data = ", value.data);
-        for (let i of value.data.crew) {
-          tableData.push(i);
-          // console.log(i);
-        }
-        // console.log("员工数据请求完成~~", value.data.crew);
-      })
-      .catch((reason) => {
-        console.log("错了：", reason);
-      });
   } else {
     link(apiUrl.userList).then((value: any) => {
       for (let i of value.data) {
@@ -149,5 +163,11 @@ onMounted(() => {
 }
 .demo-pagination-block .demonstration {
   margin-bottom: 16px;
+}
+img {
+  position: absolute;
+  width: 300px;
+  bottom: 20px;
+  right: 20px;
 }
 </style>

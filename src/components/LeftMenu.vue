@@ -1,11 +1,12 @@
 <template>
   <el-menu
     active-text-color="#ffd04b"
-    background-color="#79697e"
+    background-color="#6D875758"
     default-active="2"
     text-color="#fff"
     @select="handleSelect"
   >
+    <img src="../assets/money.png" alt="" />
     <template v-for="item in dynamicRoute" :key="item.path">
       <!-- 带下拉的菜单项 -->
       <el-sub-menu v-if="item.children" :index="item.path">
@@ -43,6 +44,8 @@ import {
   RefreshRight,
   User,
   PieChart,
+  Burger,
+  Money,
 } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 import { onMounted, reactive, shallowRef, toRaw } from "vue";
@@ -76,4 +79,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.el-menu {
+  border: transparent;
+}
+img {
+  position: absolute;
+  top: 250px;
+  left: 50px;
+  width: 100px;
+  transform: rotate(-45deg);
+}
+</style>

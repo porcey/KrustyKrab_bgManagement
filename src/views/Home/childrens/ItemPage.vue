@@ -11,8 +11,9 @@ export default {};
 <style lang="scss">
 .item {
   height: 5.125rem;
-  border: 1px solid gainsboro;
+  border: 1px solid rgba(208, 223, 231, 0.591);
   margin: 0.25rem;
-  background-color: rgba(237, 237, 237, 0.7);
+  border-radius: 10px;
+  // background-color: rgba(237, 237, 237, 0.7);
 }
 </style>

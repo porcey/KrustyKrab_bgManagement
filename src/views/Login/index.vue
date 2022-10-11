@@ -1,6 +1,7 @@
 <template>
   <div class="login">
     <div class="menu">
+      <img src="../../assets/money.png" alt="" />
       <ul class="menu-tab">
         <li
           v-for="tab in MenuData"
@@ -33,7 +34,7 @@
             <el-input v-model="ruleForm.repassword" show-password />
           </el-form-item>
           <el-button
-            type="primary"
+            color="rgb(108, 178, 85)"
             class="login-button"
             :disabled="btnState"
             @click="submitForm(ruleFormRef)"
@@ -41,7 +42,7 @@
             >登录</el-button
           >
           <el-button
-            type="primary"
+            color="rgb(108, 178, 85)"
             class="login-button"
             :disabled="btnState"
             @click="submitForm(ruleFormRef)"
@@ -254,7 +255,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-$bg: #2d3a4bb1;
+$bg: rgba(94, 112, 87, 0.5);
 $dark_gray: #889aa4;
 $light_gray: #eee;
 $cursor: #fff;
@@ -267,12 +268,20 @@ $cursor: #fff;
   color: $light_gray;
   text-align: center;
   // border-radius: 10px;
+  img {
+    position: absolute;
+    top: 22%;
+    left: 28%;
+    width: 150px;
+    transform: rotate(-45deg);
+  }
   .menu {
     width: 600px;
     height: 400px;
     margin: 0 auto;
     background-color: $bg;
     border-radius: 10px;
+    // border: 1px solid black;
   }
   //   标签切换
   .menu-tab {
@@ -291,7 +300,7 @@ $cursor: #fff;
       cursor: pointer;
     }
     .cur-tab {
-      background-color: $dark_gray;
+      background-color: rgb(109, 146, 98);
     }
   }
   //   登录和注册的表单
@@ -323,6 +332,9 @@ $cursor: #fff;
   }
   .dialog-footer button:first-child {
     margin-right: 10px;
+  }
+  .el-dialog {
+    transform: translateY(50%);
   }
   .el-dialog span {
     font-size: 18px;

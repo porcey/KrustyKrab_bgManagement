@@ -20,6 +20,7 @@
       @current-change="handleCurrentChange"
       style="margin-top: 30px"
     />
+    <img src="../../../assets/book.png" alt="" />
   </div>
 </template>
 
@@ -34,7 +35,43 @@ import axios from "axios";
 
 let store = useStore();
 
-let tableData = reactive<object[]>([]); // 用于展示的表格数据
+let tableData = reactive<object[]>([
+  {
+    id: "001",
+    item: "蟹黄堡",
+    num: 3,
+    price: "$3.75",
+    type: "堂食",
+  },
+  {
+    id: "002",
+    item: "蟹黄堡",
+    num: 1,
+    price: "$1.25",
+    type: "堂食",
+  },
+  {
+    id: "002",
+    item: "香炸珊瑚(中号)",
+    num: 1,
+    price: "$1.25",
+    type: "堂食",
+  },
+  {
+    id: "003",
+    item: "双层蟹黄堡",
+    num: 2,
+    price: "$4.00",
+    type: "打包",
+  },
+  {
+    id: "003",
+    item: "海带奶昔",
+    num: 2,
+    price: "$4.00",
+    type: "打包",
+  },
+]); // 用于展示的表格数据
 let curEdit = {}; // 当前修改后的订单信息
 let curEditUser = ref(-1);
 
@@ -69,15 +106,6 @@ const handleDelete = (index: number, row: any) => {
 // 执行订单查询
 const handleSearch = () => {
   if (store.state.HomeModule.viewStatic) {
-    axios
-      .get("./staticData.json")
-      .then((value) => {
-        tableData.splice(0, tableData.length, value.data[0]);
-        console.log("查询结果：", tableData);
-      })
-      .catch((reason) => {
-        console.log("错了：", reason);
-      });
   } else {
     link(apiUrl.userList, "GET", {}, { owner: search.value }).then(
       (value: any) => {
@@ -90,18 +118,6 @@ const handleSearch = () => {
 // 请求订单数据
 onMounted(() => {
   if (store.state.HomeModule.viewStatic) {
-    axios
-      .get("./staticData.json")
-      .then((value) => {
-        for (let i of value.data.orders) {
-          tableData.push(i);
-          // console.log(i);
-        }
-        console.log("订单数据请求完成", value.data.crew);
-      })
-      .catch((reason) => {
-        console.log("错了：", reason);
-      });
   } else {
     link(apiUrl.userList).then((value: any) => {
       for (let i of value.data) {
@@ -142,5 +158,11 @@ onMounted(() => {
 }
 .demo-pagination-block .demonstration {
   margin-bottom: 16px;
+}
+img {
+  position: absolute;
+  width: 300px;
+  bottom: 0;
+  right: 0;
 }
 </style>

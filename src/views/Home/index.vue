@@ -24,12 +24,12 @@ import RightTop from "../../components/RightTop.vue";
   height: 100%;
 }
 .el-aside {
-  background-color: #79697e;
+  background-color: rgb(109, 135, 87);
 }
 .el-header {
   background-color: white;
 }
 .el-main {
-  background-color: rgb(233, 233, 233);
+  background-color: #f5f8fe;
 }
 </style>

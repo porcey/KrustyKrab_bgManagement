@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import {Wallet, Files, RefreshRight, User, PieChart} from '@element-plus/icons-vue'
+import {Wallet, Burger, RefreshRight, User, Money,PieChart} from '@element-plus/icons-vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
@@ -22,13 +22,13 @@ const routes: Array<RouteRecordRaw> = [
         path:"/menu",
         name:"menu",
         component: () => import('../views/Home/childrens/MenuList.vue'),
-        meta:{title:"菜单管理",icon:Wallet}
+        meta:{title:"菜单管理",icon:Burger}
       },
       {
         path:"/Employeeupdate",
             name:"Employeeupdate",
             component:() => import('../views/Home/childrens/EmployeeUpdate.vue'),
-            meta:{title:"员工列表",icon:RefreshRight}
+            meta:{title:"员工列表",icon:Money}
       }
     ]
   },

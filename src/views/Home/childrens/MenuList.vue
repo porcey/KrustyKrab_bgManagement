@@ -34,6 +34,7 @@
     />
     <!-- 编辑弹出框 -->
     <UpdateDialog />
+    <img src="../../../assets/KP.png" alt="" />
   </div>
 </template>
 
@@ -48,7 +49,74 @@ import axios from "axios";
 
 let store = useStore();
 
-let tableData = reactive<object[]>([]); // 用于展示的表格数据
+let tableData = reactive<object[]>([
+  {
+    id: 1,
+    nameEn: "Krabby patty",
+    nameZn: "蟹黄堡",
+    price: "$1.25",
+  },
+  {
+    id: 2,
+    nameEn: "salty sea dog",
+    nameZn: "美味热狗",
+    price: "$1.25",
+  },
+  {
+    id: 3,
+    nameEn: "double krabby patty",
+    nameZn: "双层蟹黄堡",
+    price: "$2.00",
+  },
+  {
+    id: 4,
+    nameEn: "kelp rings",
+    nameZn: "海带圈",
+    price: "$1.50",
+  },
+  {
+    id: 5,
+    nameEn: "coral bits(medium)",
+    nameZn: "香炸珊瑚(中号)",
+    price: "$1.25",
+  },
+  {
+    id: 6,
+    nameEn: "seafoam soda(medium)",
+    nameZn: "健怡可乐(中杯)",
+    price: "$1.25",
+  },
+  {
+    id: 7,
+    nameEn: "kelp shake",
+    nameZn: "海带奶昔",
+    price: "$2.00",
+  },
+  {
+    id: 8,
+    nameEn: "krabby meal",
+    nameZn: "蟹黄堡套餐",
+    price: "$3.50",
+  },
+  {
+    id: 9,
+    nameEn: "footlong",
+    nameZn: "潜艇堡",
+    price: "$2.00",
+  },
+  {
+    id: 10,
+    nameEn: "sailors surprise",
+    nameZn: "水手惊喜",
+    price: "$3.00",
+  },
+  {
+    id: 11,
+    nameEn: "salty sauce",
+    nameZn: "咸味酱",
+    price: "$0.50",
+  },
+]); // 用于展示的表格数据
 let curEdit = {}; // 当前修改后的菜品信息
 let curEditUser = ref(-1);
 
@@ -60,7 +128,7 @@ let startIndex = computed(() => {
   return (currentPage.value - 1) * pageSize.value;
 });
 let endIndex = computed(() => {
-  return startIndex.value + pageSize.value - 1;
+  return startIndex.value + pageSize.value;
 });
 
 const handleSizeChange = (val: number) => {
@@ -97,19 +165,6 @@ const handleSearch = () => {
 // 请求菜单数据
 onMounted(() => {
   if (store.state.HomeModule.viewStatic) {
-    axios
-      .get("./staticData.json")
-      .then((value) => {
-        // console.log("value.data = ", value.data);
-        for (let i of value.data.menu) {
-          tableData.push(i);
-          // console.log(i);
-        }
-        // console.log("菜品数据请求完成", tableData);
-      })
-      .catch((reason) => {
-        console.log("错了：", reason);
-      });
   } else {
     link(apiUrl.userList).then((value: any) => {
       for (let i of value.data) {
@@ -150,5 +205,11 @@ onMounted(() => {
 }
 .demo-pagination-block .demonstration {
   margin-bottom: 16px;
+}
+img {
+  position: absolute;
+  width: 300px;
+  bottom: 0;
+  right: 0;
 }
 </style>
