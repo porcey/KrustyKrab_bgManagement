@@ -16,27 +16,19 @@ const routes: Array<RouteRecordRaw> = [
         path:"/pay",
         name:"pay",
         component: () => import('../views/Home/childrens/PayList.vue'),
-        meta:{title:"缴费管理",icon:Wallet}
+        meta:{title:"订单管理",icon:Wallet}
       },
       {
-        path:"/User",
-        name:"User",
-        component: () => import('../views/Home/childrens/UserInfo.vue'),
-        meta:{title:"住户信息",icon:Files},
-        children: [
-          {
-            path:"/userlist",
-            name:"userlist",
-            component:() => import('../views/Home/childrens/UserList.vue'),
-            meta:{title:"住户列表",icon:User}
-          },
-          {
-            path:"/userupdate",
-            name:"userupdate",
-            component:() => import('../views/Home/childrens/UserUpdate.vue'),
-            meta:{title:"住户信息更新",icon:RefreshRight}
-          },
-        ]
+        path:"/menu",
+        name:"menu",
+        component: () => import('../views/Home/childrens/MenuList.vue'),
+        meta:{title:"菜单管理",icon:Wallet}
+      },
+      {
+        path:"/Employeeupdate",
+            name:"Employeeupdate",
+            component:() => import('../views/Home/childrens/EmployeeUpdate.vue'),
+            meta:{title:"员工列表",icon:RefreshRight}
       }
     ]
   },

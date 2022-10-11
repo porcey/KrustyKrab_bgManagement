@@ -1,26 +1,37 @@
 <template>
-  <div>
-    <el-table
-      :data="tableData.slice(startIndex, endIndex)"
-      stripe
-      style="width: 100%"
-    >
-      <el-table-column prop="id" label="编号" width="180" />
-      <el-table-column prop="item" label="菜品" width="180" />
-      <el-table-column prop="num" label="数量" width="180" />
-      <el-table-column prop="price" label="价格" width="180" />
-      <el-table-column prop="type" label="类型" />
-    </el-table>
-    <el-pagination
-      v-model:currentPage="currentPage"
-      v-model:page-size="pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="tableData.length"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      style="margin-top: 30px"
-    />
-  </div>
+  <el-table
+    :data="tableData.slice(startIndex, endIndex)"
+    stripe
+    style="width: 100%"
+  >
+    <el-table-column prop="id" label="编号" width="180" />
+    <el-table-column prop="name" label="姓名" width="180" />
+    <el-table-column prop="post" label="职位" width="180" />
+    <el-table-column label="操作">
+      <template #default="scope">
+        <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+          >修改</el-button
+        >
+        <el-button
+          size="small"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button
+        >
+      </template>
+    </el-table-column>
+  </el-table>
+  <el-pagination
+    v-model:currentPage="currentPage"
+    v-model:page-size="pageSize"
+    layout="total, sizes, prev, pager, next, jumper"
+    :total="tableData.length"
+    @size-change="handleSizeChange"
+    @current-change="handleCurrentChange"
+    style="margin-top: 30px"
+  />
+  <!-- 编辑弹出框 -->
+  <UpdateDialog />
 </template>
 
 <script lang="ts" setup>
@@ -35,7 +46,7 @@ import axios from "axios";
 let store = useStore();
 
 let tableData = reactive<object[]>([]); // 用于展示的表格数据
-let curEdit = {}; // 当前修改后的订单信息
+let curEdit = {}; // 当前修改后的员工信息
 let curEditUser = ref(-1);
 
 const currentPage = ref(1); // 当前页码
@@ -56,48 +67,44 @@ const handleSizeChange = (val: number) => {
 const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`);
 };
-// 订单信息编辑
+// 员工信息编辑
 const handleEdit = (index: number, row: any) => {
-  console.log("修改订单：", index, row);
+  console.log("修改员工：", index, row);
   curEditUser.value = row.id;
-  store.commit("SET_DIALOG");
+  store.commit("SET_DIALOG", "crew");
 };
-// 订单删除
+// 员工删除
 const handleDelete = (index: number, row: any) => {
   console.log(index, row);
 };
-// 执行订单查询
+// 执行员工查询
 const handleSearch = () => {
-  if (store.state.HomeModule.viewStatic) {
-    axios
-      .get("./staticData.json")
-      .then((value) => {
-        tableData.splice(0, tableData.length, value.data[0]);
-        console.log("查询结果：", tableData);
-      })
-      .catch((reason) => {
-        console.log("错了：", reason);
-      });
-  } else {
-    link(apiUrl.userList, "GET", {}, { owner: search.value }).then(
-      (value: any) => {
-        tableData.splice(0, tableData.length, value.data[0]);
-        console.log("查询结果：", tableData);
-      }
-    );
-  }
+  link(apiUrl.userList, "GET", {}, { owner: search.value }).then(
+    (value: any) => {
+      tableData.splice(0, tableData.length, value.data[0]);
+      console.log("查询结果：", tableData);
+    }
+  );
 };
-// 请求订单数据
+let testCur = {
+  id: 99,
+  title: "1",
+  num: "2",
+  hometype: "3",
+  owner: "4",
+};
+// 请求员工数据
 onMounted(() => {
   if (store.state.HomeModule.viewStatic) {
     axios
       .get("./staticData.json")
       .then((value) => {
-        for (let i of value.data.orders) {
+        // console.log("value.data = ", value.data);
+        for (let i of value.data.crew) {
           tableData.push(i);
           // console.log(i);
         }
-        console.log("订单数据请求完成", value.data.crew);
+        // console.log("员工数据请求完成~~", value.data.crew);
       })
       .catch((reason) => {
         console.log("错了：", reason);
@@ -116,7 +123,7 @@ onMounted(() => {
       axios
         .patch("./staticData.json" + "/" + curEditUser.value, curEdit, {})
         .then((value) => {
-          console.log("收到了修改订单的请求:", value.data);
+          console.log("收到了修改员工的请求:", value.data);
         })
         .catch((reason) => {
           console.log("错了：", reason);
@@ -128,7 +135,7 @@ onMounted(() => {
         curEdit,
         {}
       ).then((value: any) => {
-        console.log("收到了修改订单的请求:", value.data);
+        console.log("收到了修改员工的请求:", value.data);
       });
     }
     window.location.reload();

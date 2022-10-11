@@ -1,0 +1,172 @@
+{
+    "crew": [{
+        "id": 1,
+        "name": "蟹老板",
+        "post": "老板"
+    }, {
+        "id": 2,
+        "name": "海绵宝宝",
+        "post": "厨师、服务员、清洁工"
+    }, {
+        "id": 3,
+        "name": "章鱼哥",
+        "post": "柜台收银员"
+    }, {
+        "id": 4,
+        "name": "派大星",
+        "post": "编外人员"
+    }],
+    "menu": [{
+            "id": 1,
+            "nameEn": "Krabby patty",
+            "nameZn": "蟹黄堡",
+            "price": "$1.25"
+        },
+        {
+            "id": 2,
+            "nameEn": "salty sea dog",
+            "nameZn": "美味热狗",
+            "price": "$1.25"
+        },
+        {
+            "id": 3,
+            "nameEn": "double krabby patty",
+            "nameZn": "双层蟹黄堡",
+            "price": "$2.00"
+        },
+        {
+            "id": 4,
+            "nameEn": "kelp rings",
+            "nameZn": "海带圈",
+            "price": "$1.50"
+        },
+        {
+            "id": 5,
+            "nameEn": "coral bits(medium)",
+            "nameZn": "香炸珊瑚(中号)",
+            "price": "$1.25"
+        },
+        {
+            "id": 6,
+            "nameEn": "seafoam soda(medium)",
+            "nameZn": "健怡可乐(中杯)",
+            "price": "$1.25"
+        },
+        {
+            "id": 7,
+            "nameEn": "kelp shake",
+            "nameZn": "海带奶昔",
+            "price": "$2.00"
+        }
+    ],
+    "chartDataOne": [{
+            "title": "一月",
+            "num": 1827
+        },
+        {
+            "title": "二月",
+            "num": 342
+        },
+        {
+            "title": "三月",
+            "num": 541
+        },
+        {
+            "title": "四月",
+            "num": 1347
+        },
+        {
+            "title": "五月",
+            "num": 2431
+        },
+        {
+            "title": "六月",
+            "num": 876
+        },
+        {
+            "title": "七月",
+            "num": 1578
+        },
+        {
+            "title": "八月",
+            "num": 223
+        },
+        {
+            "title": "九月",
+            "num": 20
+        },
+        {
+            "title": "十月",
+            "num": 0
+        },
+        {
+            "title": "十一月",
+            "num": 0
+        },
+        {
+            "title": "十二月",
+            "num": 0
+        }
+    ],
+    "chartDataThree": [{
+            "value": 892,
+            "name": "蟹黄堡"
+        },
+        {
+            "value": 123,
+            "name": "海带圈"
+        },
+        {
+            "value": 324,
+            "name": "香炸珊瑚(中号)"
+        },
+        {
+            "value": 89,
+            "name": "健怡可乐(中杯)"
+        },
+        {
+            "value": 453,
+            "name": "美味热狗"
+        },
+        {
+            "value": 662,
+            "name": "双层蟹黄堡"
+        }
+
+    ],
+    "orders": [{
+            "id": "001",
+            "item": "蟹黄堡",
+            "num": 3,
+            "price": "$3.75",
+            "type": "堂食"
+        },
+        {
+            "id": "002",
+            "item": "蟹黄堡",
+            "num": 1,
+            "price": "$1.25",
+            "type": "堂食"
+        },
+        {
+            "id": "002",
+            "item": "香炸珊瑚(中号)",
+            "num": 1,
+            "price": "$1.25",
+            "type": "堂食"
+        },
+        {
+            "id": "003",
+            "item": "双层蟹黄堡",
+            "num": 2,
+            "price": "$4.00",
+            "type": "打包"
+        }, {
+            "id": "003",
+            "item": "海带奶昔",
+            "num": 2,
+            "price": "$4.00",
+            "type": "打包"
+        }
+    ]
+}

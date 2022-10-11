@@ -4,11 +4,9 @@
     stripe
     style="width: 100%"
   >
-    <el-table-column prop="id" label="编号" width="100" />
-    <el-table-column prop="title" label="楼盘名称" width="180" />
-    <el-table-column prop="num" label="门牌号" width="180" />
-    <el-table-column prop="hometype" label="房源户型" width="180" />
-    <el-table-column prop="owner" label="户主姓名" />
+    <el-table-column prop="id" label="编号" width="180" />
+    <el-table-column prop="title" label="姓名" width="180" />
+    <el-table-column prop="num" label="职位" width="180" />
     <el-table-column label="操作">
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
@@ -42,11 +40,11 @@ import link from "../../../api/link";
 import UpdateDialog from "../../../components/UpdateDialog.vue";
 import { useStore } from "vuex";
 import bus from "../../../utils/bus.js";
+import axios from "axios";
 
 let store = useStore();
 
 let tableData = reactive<object[]>([]); // 用于展示的表格数据
-let userData = reactive<object[]>([]); // 总用户数据
 let curEdit = {}; // 当前修改后的用户信息
 let curEditUser = ref(-1);
 
@@ -80,12 +78,12 @@ const handleDelete = (index: number, row: any) => {
 };
 // 执行住户查询
 const handleSearch = () => {
-  link(apiUrl.userList, "GET", {}, { owner: search.value }).then(
-    (value: any) => {
-      tableData.splice(0, tableData.length, value.data[0]);
-      console.log("查询结果：", tableData);
-    }
-  );
+  // link(apiUrl.userList, "GET", {}, { owner: search.value }).then(
+  //   (value: any) => {
+  //     tableData.splice(0, tableData.length, value.data[0]);
+  //     console.log("查询结果：", tableData);
+  //   }
+  // );
 };
 let testCur = {
   id: 99,
@@ -96,12 +94,19 @@ let testCur = {
 };
 // 请求用户数据
 onMounted(() => {
-  link(apiUrl.userList).then((value: any) => {
-    for (let i of value.data) {
-      tableData.push(i);
-      userData.push(i);
-    }
-  });
+  // link(apiUrl.userList).then((value: any) => {
+  //   for (let i of value.data) {
+  //     tableData.push(i);
+  //   }
+  // });
+  axios
+    .get("./staticData.json")
+    .then((res) => {
+      console.log("res.data = ", res.data);
+    })
+    .catch((reason) => {
+      console.log("错了：", reason);
+    });
   // 监听是否有数据修改
   bus.on("userUpdate", (key: any) => {
     curEdit = key;

@@ -39,8 +39,8 @@ service.interceptors.response.use(function (response) {
         title: `失败 ${error.response.status}`,
         message: `${error.message}`,
         type: 'error',
-        duration: 0,
     })
+    console.log("是否转到静态页面");
     return Promise.reject(error);
 });
 

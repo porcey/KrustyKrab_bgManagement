@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div>
+    <div class="menu">
       <ul class="menu-tab">
         <li
           v-for="tab in MenuData"
@@ -50,16 +50,35 @@
           >
           <el-button type="default" class="reset-button" @click="clearInput"
             >重置</el-button
+          ><el-button type="default" class="reset-button" @click="staticView"
+            >浏览静态页面</el-button
           >
         </el-form>
       </div>
     </div>
+    <!-- 开屏的弹出提示 -->
+    <el-dialog
+      v-model="dialogVisible"
+      title="欢迎进入蟹堡王后台管理系统🍔"
+      width="30%"
+    >
+      <span
+        >由于登陆注册功能借助了本地的json-server, 线上只能浏览静态页面。</span
+      >
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button type="primary" @click="dialogVisible = false"
+            >确认</el-button
+          >
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
+import { onMounted, watch } from "@vue/runtime-core";
 import type { FormInstance, FormRules } from "element-plus";
 import * as ck from "../../utils/verfifcation.js";
 import link from "../../api/link.js";
@@ -67,7 +86,12 @@ import apiUrl from "../../api/apiUrl.js";
 import { ElNotification } from "element-plus";
 import md5 from "js-md5";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 let router = useRouter();
+let store = useStore();
+
+// 开屏弹窗提示
+let dialogVisible = ref(true);
 // 标签切换
 const MenuData = reactive([
   { content: "登录", cur: true, type: "login" },
@@ -152,6 +176,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           }
         ).then((value: any) => {
           if (value.data.length) {
+            store.commit("SET_STATIC", false);
             console.log("登陆成功");
             router.push("/home");
           } else {
@@ -217,10 +242,19 @@ function clearInput() {
   ruleForm.password = "";
   ruleForm.repassword = "";
 }
+// 浏览静态页面
+function staticView() {
+  // store.commit("SET_ROUTE", router.options.routes[1].children);
+  router.push("/echarts");
+}
+onMounted(() => {
+  // store.commit("SET_ROUTE", router.options.routes[0].children);
+  // console.log("login:", router.options.routes[0].children);
+});
 </script>
 
 <style lang="scss">
-$bg: #2d3a4b;
+$bg: #2d3a4bb1;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 $cursor: #fff;
@@ -228,13 +262,24 @@ $cursor: #fff;
   display: flow-root;
   width: 100%;
   height: 100%;
-  background-color: $bg;
+  // background-color: $bg;
+  background: url(../../assets/蟹堡王.jpg) no-repeat;
   color: $light_gray;
+  text-align: center;
+  // border-radius: 10px;
+  .menu {
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+    background-color: $bg;
+    border-radius: 10px;
+  }
   //   标签切换
   .menu-tab {
     width: 200px;
     margin: 0 auto;
     margin-top: 200px;
+    padding-top: 20px;
     text-align: center;
     li {
       display: inline-block;
@@ -275,6 +320,12 @@ $cursor: #fff;
     color: $dark_gray;
     vertical-align: middle;
     display: inline-block;
+  }
+  .dialog-footer button:first-child {
+    margin-right: 10px;
+  }
+  .el-dialog span {
+    font-size: 18px;
   }
 }
 </style>

@@ -1,22 +1,22 @@
 <template>
   <div class="container">
     <div class="left">
-      <IP>
+      <IP style="padding-top: 0.375rem">
         <template #main>
           <One />
         </template>
       </IP>
-      <IP style="height: 400px"
+      <IP style="padding-top: 0.375rem"
         ><template #main> <Two /> </template
       ></IP>
     </div>
     <div class="right">
-      <IP>
+      <IP style="padding-top: 0.375rem">
         <template #main>
           <Three />
         </template>
       </IP>
-      <IP style="height: 400px">
+      <IP style="padding-top: 0.375rem">
         <template #main>
           <Four />
         </template>
@@ -49,7 +49,6 @@ import Four from "../../../components/charts/Four.vue";
   }
   .right {
     // background-color: wheat;
-    // position: relative;
   }
 }
 </style>

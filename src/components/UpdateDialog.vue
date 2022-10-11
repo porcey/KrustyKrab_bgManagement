@@ -1,20 +1,27 @@
 <template>
   <el-dialog
     v-model="store.state.HomeModule.dialogFormVisible"
-    title="修改用户信息"
+    title="修改信息"
   >
-    <el-form :model="form">
-      <el-form-item label="楼盘名称" :label-width="formLabelWidth">
-        <el-input v-model="form.title" autocomplete="off" />
+    <!-- 修改员工信息 -->
+    <el-form :model="form" v-if="store.state.HomeModule.dialogType === 'crew'">
+      <el-form-item label="姓名" :label-width="formLabelWidth">
+        <el-input v-model="form.name" autocomplete="off" />
       </el-form-item>
-      <el-form-item label="门牌号" :label-width="formLabelWidth">
-        <el-input v-model="form.num" autocomplete="off" />
+      <el-form-item label="职位" :label-width="formLabelWidth">
+        <el-input v-model="form.post" autocomplete="off" />
       </el-form-item>
-      <el-form-item label="房源户型" :label-width="formLabelWidth">
-        <el-input v-model="form.hometype" autocomplete="off" />
+    </el-form>
+    <!-- 修改菜品信息 -->
+    <el-form :model="form" v-if="store.state.HomeModule.dialogType === 'menu'">
+      <el-form-item label="英文名" :label-width="formLabelWidth">
+        <el-input v-model="formMenu.name" autocomplete="off" />
       </el-form-item>
-      <el-form-item label="户主姓名" :label-width="formLabelWidth">
-        <el-input v-model="form.owner" autocomplete="off" />
+      <el-form-item label="中文名" :label-width="formLabelWidth">
+        <el-input v-model="formMenu.post" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="价格" :label-width="formLabelWidth">
+        <el-input v-model="formMenu.post" autocomplete="off" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -30,26 +37,29 @@
 import { reactive, ref } from "vue";
 import { useStore } from "vuex";
 import bus from "../utils/bus.js";
+import apiUrl from "../api/apiUrl";
+import link from "../api/link";
 
 let store = useStore();
 
 const formLabelWidth = "140px";
 
 const form = reactive({
-  title: "",
-  num: "",
-  hometype: "",
-  owner: "",
+  name: "",
+  post: "",
+});
+const formMenu = reactive({
+  nameEn: "",
+  nameZn: "",
+  price: "",
 });
 
 let closeDialog = (value) => {
   if (value) {
     // value为1表示点击了修改
     let newInfo = {
-      title: form.title,
-      num: form.num,
-      hometype: form.hometype,
-      owner: form.owner,
+      name: form.name,
+      post: form.post,
     };
     // 剔除未填写的数据段
     for (let i in newInfo) {
@@ -57,9 +67,13 @@ let closeDialog = (value) => {
         delete newInfo[i];
       }
     }
-    bus.emit("userUpdate", reactive(newInfo));
+    // bus.emit("userUpdate", reactive(newInfo));
+    link(apiUrl.userList, "GET", {}, {}).then((value) => {
+      tableData.splice(0, tableData.length, value.data[0]);
+      // console.log("删除结果：", tableData);
+    });
   }
-  store.commit("SET_DIALOG");
+  store.commit("SET_DIALOG", "");
 };
 </script>
 

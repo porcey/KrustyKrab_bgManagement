@@ -24,7 +24,7 @@ import RightTop from "../../components/RightTop.vue";
   height: 100%;
 }
 .el-aside {
-  background-color: #79697e;
+  background-color: #545c64;
 }
 .el-header {
   background-color: white;

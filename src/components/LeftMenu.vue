@@ -1,8 +1,7 @@
 <template>
   <el-menu
     active-text-color="#ffd04b"
-    background-color="#545c64"
-    class="el-menu-vertical-demo"
+    background-color="#79697e"
     default-active="2"
     text-color="#fff"
     @select="handleSelect"
@@ -31,7 +30,7 @@
   </el-menu>
 </template>
 
-<script lang="ts" setup>
+<script>
 import {
   Document,
   Menu as IconMenu,
@@ -46,12 +45,34 @@ import {
   PieChart,
 } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
-const router = useRouter();
-// 动态路由：用于遍历生成左侧菜单项的数据
-const dynamicRoute = router.options.routes[0].children;
-const handleSelect = (key: string, keyPath: string[]) => {
-  // 选中后跳转到对应的路由页面
-  router.push(key);
+import { onMounted, reactive, shallowRef, toRaw } from "vue";
+import { useStore } from "vuex";
+
+export default {
+  components: {
+    Wallet: shallowRef(Wallet),
+    Files: shallowRef(Files),
+    RefreshRight: shallowRef(RefreshRight),
+    User: shallowRef(User),
+    PieChart: shallowRef(PieChart),
+  },
+  setup() {
+    const router = useRouter();
+    const store = useStore();
+
+    let dynamicRoute = router.options.routes[0].children;
+    const handleSelect = (key, keyPath) => {
+      // 选中后跳转到对应的路由页面
+      router.push(key);
+    };
+    onMounted(() => {
+      console.log("我是主角：", dynamicRoute);
+    });
+    return {
+      dynamicRoute,
+      handleSelect,
+    };
+  },
 };
 </script>
 

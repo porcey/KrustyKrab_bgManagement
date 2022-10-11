@@ -5,10 +5,8 @@
     style="width: 100%"
   >
     <el-table-column prop="id" label="编号" width="180" />
-    <el-table-column prop="title" label="楼盘名称" width="180" />
-    <el-table-column prop="num" label="门牌号" width="180" />
-    <el-table-column prop="hometype" label="房源户型" width="180" />
-    <el-table-column prop="owner" label="户主姓名" />
+    <el-table-column prop="title" label="姓名" width="180" />
+    <el-table-column prop="num" label="职位" width="180" />
     <el-table-column>
       <template #header>
         <el-input
@@ -32,8 +30,6 @@
 
 <script lang="ts" setup>
 import { ref, reactive, computed, onMounted } from "vue";
-import apiUrl from "../../../api/apiUrl";
-import link from "../../../api/link";
 let tableData = reactive<object[]>([]);
 let userData = reactive<object[]>([]);
 const currentPage = ref(1);
@@ -54,24 +50,6 @@ const handleSizeChange = (val: number) => {
 const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`);
 };
-// 执行住户查询
-const handleSearch = () => {
-  link(apiUrl.userList, "GET", {}, { owner: search.value }).then(
-    (value: any) => {
-      tableData.splice(0, tableData.length, value.data[0]);
-      console.log("查询结果：", tableData);
-    }
-  );
-};
-// 请求用户数据
-onMounted(() => {
-  link(apiUrl.userList).then((value: any) => {
-    for (let i of value.data) {
-      tableData.push(i);
-      userData.push(i);
-    }
-  });
-});
 </script>
 
 <style lang="scss" scoped>
