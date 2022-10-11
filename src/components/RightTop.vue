@@ -1,6 +1,6 @@
 <template>
   <div class="notice">
-    本月痞老板偷袭 3 次，成功 0 次，造成损失攻击$253。
+    本月痞老板偷袭 3 次，成功 0 次，造成损失共计$253。
     <img src="../assets/Sheldon.png" alt="" />
   </div>
 </template>
